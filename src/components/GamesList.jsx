@@ -16,7 +16,7 @@ export default class GamesList extends Component {
     this.setState({ query: quary.trim() });
   };
 
-  clearQuary = () => {
+  clearQuery = () => {
     this.setState({ query: "" });
   };
 
@@ -55,6 +55,18 @@ export default class GamesList extends Component {
               />
             </div>
           </form>
+        </div>
+        <div>
+          {showingGames.length !== games.length && (
+            <div>
+              <span>
+                Now showing {showingGames.length} of {games.length}
+              </span>
+              <button onClick={this.clearQuery} className="btn btn-secondary">
+                Show all
+              </button>
+            </div>
+          )}
         </div>
         <ol>
           {showingGames.map((game, idx) => (

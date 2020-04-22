@@ -59,7 +59,7 @@ export default class GamesList extends Component {
         <ol>
           {showingGames.map((game, idx) => (
             <li key={idx} className="list-unstyled">
-              <div className="card mb-3">
+              <div className="card shadow mb-3">
                 <div className="card-body">
                   <p>
                     Title:

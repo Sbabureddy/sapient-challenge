@@ -10,8 +10,18 @@ export default class GamesList extends Component {
       games: [],
       query: "",
       selectedPlatform: "",
+      scoreAsce: false,
+      scoreDsce: false,
     };
   }
+
+  scoreAsce = () => {
+    this.setState({ scoreAsce: true });
+  };
+
+  scoreDsce = () => {
+    this.setState({ scoreDsce: true });
+  };
 
   updateQuary = (quary) => {
     this.setState({ query: quary.trim(), selectedPlatform: "" });
@@ -32,7 +42,7 @@ export default class GamesList extends Component {
   }
 
   render() {
-    const { games, query, selectedPlatform } = this.state;
+    const { games, query, selectedPlatform, scoreAsce, scoreDsce } = this.state;
 
     let showingGames;
     if (query) {
@@ -50,7 +60,14 @@ export default class GamesList extends Component {
 
     platforms.sort();
 
-    // showingGames.sort(sortBy("score"));
+    if (scoreAsce) {
+      showingGames.sort(sortBy("score"));
+    }
+    if (scoreDsce) {
+      showingGames.sort(sortBy("-score"));
+    }
+
+    showingGames.sort(sortBy("title"));
 
     return (
       <div>
@@ -69,8 +86,12 @@ export default class GamesList extends Component {
             </div>
           </form>
         </div>
-        <div>
-          <select value={selectedPlatform} onChange={this.updatePlatform}>
+        <div className="form-group">
+          <select
+            value={selectedPlatform}
+            onChange={this.updatePlatform}
+            className="form-control"
+          >
             <option value="None">None</option>
             {platforms.map((platform) => (
               <option value={platform} key={platform}>
@@ -78,6 +99,12 @@ export default class GamesList extends Component {
               </option>
             ))}
           </select>
+          <button className="btn btn-primary" onClick={this.scoreAsce}>
+            Score By Ascending Order
+          </button>
+          <button className="btn btn-secondary" onClick={this.scoreDsce}>
+            Score By Dscending Order
+          </button>
         </div>
         <div>
           {showingGames.length !== games.length && (

@@ -9,15 +9,20 @@ export default class GamesList extends Component {
     this.state = {
       games: [],
       query: "",
+      selectedPlatform: "",
     };
   }
 
   updateQuary = (quary) => {
-    this.setState({ query: quary.trim() });
+    this.setState({ query: quary.trim(), selectedPlatform: "" });
+  };
+
+  updatePlatform = (e) => {
+    this.setState({ query: "", selectedPlatform: e.target.value });
   };
 
   clearQuery = () => {
-    this.setState({ query: "" });
+    this.setState({ query: "", selectedPlatform: "" });
   };
 
   componentDidMount() {
@@ -27,17 +32,25 @@ export default class GamesList extends Component {
   }
 
   render() {
-    const { games, query } = this.state;
+    const { games, query, selectedPlatform } = this.state;
 
     let showingGames;
     if (query) {
       const match = new RegExp(escapeRegExp(query), "i");
       showingGames = games.filter((game) => match.test(game.title));
+    } else if (selectedPlatform) {
+      const match = new RegExp(escapeRegExp(selectedPlatform), "i");
+      showingGames = games.filter((game) => match.test(game.platform));
     } else {
       showingGames = games;
     }
 
-    showingGames.sort(sortBy("score"));
+    let platforms = showingGames.map((game) => game.platform);
+    platforms = [...new Set(platforms)];
+
+    platforms.sort();
+
+    // showingGames.sort(sortBy("score"));
 
     return (
       <div>
@@ -55,6 +68,16 @@ export default class GamesList extends Component {
               />
             </div>
           </form>
+        </div>
+        <div>
+          <select value={selectedPlatform} onChange={this.updatePlatform}>
+            <option value="None">None</option>
+            {platforms.map((platform) => (
+              <option value={platform} key={platform}>
+                {platform}
+              </option>
+            ))}
+          </select>
         </div>
         <div>
           {showingGames.length !== games.length && (

@@ -84,40 +84,84 @@ export default class GamesList extends Component {
                 onChange={(event) => this.updateQuary(event.target.value)}
               />
             </div>
-          </form>
-        </div>
-        <div className="form-group">
-          <select
-            value={selectedPlatform}
-            onChange={this.updatePlatform}
-            className="form-control"
-          >
-            <option value="None">None</option>
-            {platforms.map((platform) => (
-              <option value={platform} key={platform}>
-                {platform}
-              </option>
-            ))}
-          </select>
-          <button className="btn btn-primary" onClick={this.scoreAsce}>
-            Score By Ascending Order
-          </button>
-          <button className="btn btn-secondary" onClick={this.scoreDsce}>
-            Score By Dscending Order
-          </button>
-        </div>
-        <div>
-          {showingGames.length !== games.length && (
-            <div>
-              <span>
-                Now showing {showingGames.length} of {games.length}
-              </span>
-              <button onClick={this.clearQuery} className="btn btn-secondary">
-                Show all
+            <div className="form-group">
+              <select
+                value={selectedPlatform}
+                onChange={this.updatePlatform}
+                className="form-control mb-1"
+              >
+                <option value="None">None</option>
+                {platforms.map((platform) => (
+                  <option value={platform} key={platform}>
+                    {platform}
+                  </option>
+                ))}
+              </select>
+
+              <button className="btn btn-primary" onClick={this.scoreAsce}>
+                <svg
+                  className="bi bi-arrow-up"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M8 3.5a.5.5 0 01.5.5v9a.5.5 0 01-1 0V4a.5.5 0 01.5-.5z"
+                    clipRule="evenodd"
+                  />
+                  <path
+                    fillRule="evenodd"
+                    d="M7.646 2.646a.5.5 0 01.708 0l3 3a.5.5 0 01-.708.708L8 3.707 5.354 6.354a.5.5 0 11-.708-.708l3-3z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+              <button
+                className="btn btn-secondary ml-2"
+                onClick={this.scoreDsce}
+              >
+                <svg
+                  className="bi bi-arrow-down"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M4.646 9.646a.5.5 0 01.708 0L8 12.293l2.646-2.647a.5.5 0 01.708.708l-3 3a.5.5 0 01-.708 0l-3-3a.5.5 0 010-.708z"
+                    clipRule="evenodd"
+                  />
+                  <path
+                    fillRule="evenodd"
+                    d="M8 2.5a.5.5 0 01.5.5v9a.5.5 0 01-1 0V3a.5.5 0 01.5-.5z"
+                    clipRule="evenodd"
+                  />
+                </svg>
               </button>
             </div>
-          )}
+            <div>
+              {showingGames.length !== games.length && (
+                <div>
+                  <span>
+                    Now showing {showingGames.length} of {games.length}
+                  </span>
+                  <button
+                    onClick={this.clearQuery}
+                    className="btn btn-secondary"
+                  >
+                    Show all
+                  </button>
+                </div>
+              )}
+            </div>
+          </form>
         </div>
+
         <ol>
           {showingGames.map((game, idx) => (
             <li key={idx} className="list-unstyled">
